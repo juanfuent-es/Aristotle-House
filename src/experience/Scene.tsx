@@ -1,21 +1,13 @@
-import { useControls } from 'leva'
+import type { OpticalMaterialSettings } from './materials/OpticalMaterial'
 import { OpticalSubject } from './subjects/OpticalSubject'
 import { OrbitingRibbon } from './subjects/OrbitingRibbon'
 
 interface SceneProps {
   debug: boolean
+  material: OpticalMaterialSettings
 }
 
-export function Scene({ debug }: SceneProps) {
-  const material = useControls('Optical material', {
-    transmission: { value: 1, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 1.35, min: 0, max: 3, step: 0.01 },
-    roughness: { value: 0.055, min: 0, max: 1, step: 0.005 },
-    ior: { value: 1.52, min: 1, max: 2.33, step: 0.01 },
-    chromaticAberration: { value: 0.105, min: 0, max: 0.2, step: 0.001 },
-    distortion: { value: 0.14, min: 0, max: 1, step: 0.01 },
-  })
-
+export function Scene({ debug, material }: SceneProps) {
   return (
     <>
       <color attach="background" args={['#050505']} />

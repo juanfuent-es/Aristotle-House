@@ -137,6 +137,21 @@ h1 span:last-child { text-align: right; }
 .site-footer { z-index: 4; }
 .model-credit a { pointer-events: auto; }
 
+.lil-gui.root.material-gui {
+  --background-color: #090909;
+  --widget-color: #191919;
+  --hover-color: #252525;
+  --focus-color: #34201f;
+  --text-color: #df211f;
+  --number-color: #ff9189;
+  --string-color: #ff9189;
+  position: fixed;
+  z-index: 20;
+  top: 3.75rem;
+  right: 1rem;
+  border: 1px solid rgb(223 33 31 / 45%);
+}
+
 @media (max-width: 760px) {
   .edition, .model-credit { display: none; }
   .hero-copy { align-self: start; margin-top: 17vh; }
@@ -145,4 +160,5 @@ h1 span:last-child { text-align: right; }
   h1 span { display: block; }
   h1 span:last-child { margin-left: 0.32em; text-align: left; }
   .brand-star { top: 120%; }
+  .lil-gui.root.material-gui { width: min(260px, calc(100vw - 2rem)); }
 }

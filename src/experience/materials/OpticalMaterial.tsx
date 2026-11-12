@@ -21,13 +21,13 @@ export function OpticalMaterial({ settings }: OpticalMaterialProps) {
     <MeshTransmissionMaterial
       {...settings}
       background={refractionBackground}
-      color="#ffaaa0"
+      color="#d93431"
       attenuationColor="#df211f"
-      attenuationDistance={1.8}
-      anisotropicBlur={0.035}
+      attenuationDistance={0.7}
+      anisotropicBlur={0.045}
       clearcoat={1}
-      clearcoatRoughness={0.06}
-      distortionScale={0.3}
+      clearcoatRoughness={0.08}
+      distortionScale={0.38}
       temporalDistortion={0.025}
       samples={8}
       resolution={768}

@@ -21,7 +21,7 @@ export function ComingSoonPage({ debug }: ComingSoonPageProps) {
       </header>
 
       <section className="hero-copy" aria-labelledby="page-title">
-        <p className="eyebrow">This building becomes</p>
+        <p className="eyebrow">Nothing reaches the mind without first passing through the senses.</p>
         <h1 id="page-title">
           <span>Aristotle</span>
           <span>House</span>
@@ -30,7 +30,7 @@ export function ComingSoonPage({ debug }: ComingSoonPageProps) {
       </section>
 
       <footer className="site-footer">
-        <p>Mexico City · Move to explore</p>
+        <p>Dubai / Move to explore</p>
         <p className="model-credit">
           3D: <a href="https://sketchfab.com/nicola_scaramella">Nicola Scaramella</a> · CC BY 4.0
         </p>

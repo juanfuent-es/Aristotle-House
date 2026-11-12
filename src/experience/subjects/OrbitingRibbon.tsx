@@ -1,9 +1,10 @@
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import {
-  BackSide,
   CanvasTexture,
+  DoubleSide,
   MathUtils,
+  PlaneGeometry,
   RepeatWrapping,
   SRGBColorSpace,
   type Group,
@@ -11,7 +12,7 @@ import {
 
 function createRibbonTexture() {
   const canvas = document.createElement('canvas')
-  canvas.width = 2048
+  canvas.width = 4096
   canvas.height = 256
 
   const context = canvas.getContext('2d')
@@ -24,7 +25,7 @@ function createRibbonTexture() {
   context.textAlign = 'left'
   context.textBaseline = 'middle'
 
-  const label = 'COMING SOON  ✦  '
+  const label = 'COMING SOON  ·  ARISTOTLE HOUSE  ·  '
   const labelWidth = context.measureText(label).width
 
   for (let x = -labelWidth; x < canvas.width + labelWidth; x += labelWidth) {
@@ -34,8 +35,7 @@ function createRibbonTexture() {
   const texture = new CanvasTexture(canvas)
   texture.colorSpace = SRGBColorSpace
   texture.wrapS = RepeatWrapping
-  texture.repeat.set(-1, 1)
-  texture.offset.x = 1
+  texture.repeat.set(1, 1)
   texture.anisotropy = 8
   return texture
 }
@@ -47,28 +47,48 @@ interface OrbitingRibbonProps {
 export function OrbitingRibbon({ debug }: OrbitingRibbonProps) {
   const ribbon = useRef<Group>(null)
   const texture = useMemo(createRibbonTexture, [])
+  const geometry = useMemo(() => {
+    const plane = new PlaneGeometry(14, 1.05, 128, 1)
+    const positions = plane.attributes.position
 
-  useEffect(() => () => texture.dispose(), [texture])
+    for (let index = 0; index < positions.count; index += 1) {
+      const x = positions.getX(index)
+      positions.setZ(index, -0.018 * x * x)
+    }
 
-  useFrame(({ clock, pointer }, delta) => {
+    positions.needsUpdate = true
+    plane.computeVertexNormals()
+    return plane
+  }, [])
+
+  useEffect(() => () => {
+    texture.dispose()
+    geometry.dispose()
+  }, [geometry, texture])
+
+  useFrame(({ pointer }, delta) => {
     if (!ribbon.current || debug) return
 
-    const targetRotation = clock.elapsedTime * 0.1 + pointer.x * 1.15
+    ribbon.current.position.x = MathUtils.damp(
+      ribbon.current.position.x,
+      pointer.x * 1.45,
+      3.8,
+      delta,
+    )
     ribbon.current.rotation.y = MathUtils.damp(
       ribbon.current.rotation.y,
-      targetRotation,
-      4.5,
+      pointer.x * 0.13,
+      3.8,
       delta,
     )
   })
 
   return (
-    <group ref={ribbon} position={[0, 0.26, -0.08]} rotation={[0.035, 0, -0.035]}>
-      <mesh>
-        <cylinderGeometry args={[1.68, 1.68, 0.6, 128, 1, true]} />
+    <group ref={ribbon} position={[0, 0.18, -0.52]} rotation={[0.035, 0, -0.025]}>
+      <mesh geometry={geometry}>
         <meshBasicMaterial
           map={texture}
-          side={BackSide}
+          side={DoubleSide}
           toneMapped={false}
         />
       </mesh>
