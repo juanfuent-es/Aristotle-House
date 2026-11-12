@@ -1,0 +1,11 @@
+Model Information:
+* title:	Aristoteles - final
+* source:	https://sketchfab.com/3d-models/aristoteles-final-5c818387cb0744d9a767c3937280085a
+* author:	edioudi (https://sketchfab.com/edioudi)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Aristoteles - final" (https://sketchfab.com/3d-models/aristoteles-final-5c818387cb0744d9a767c3937280085a) by edioudi (https://sketchfab.com/edioudi) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
