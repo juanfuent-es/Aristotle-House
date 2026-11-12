@@ -1,7 +1,7 @@
 import { Float, useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
-import { Mesh, type BufferGeometry, type Group } from 'three'
+import { MathUtils, Mesh, type BufferGeometry, type Group } from 'three'
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { OpticalMaterial, type OpticalMaterialSettings } from '../materials/OpticalMaterial'
 
@@ -39,9 +39,24 @@ export function OpticalSubject({ material, debug }: OpticalSubjectProps) {
   useFrame(({ pointer }, delta) => {
     if (!subject.current || debug) return
 
-    subject.current.rotation.y += delta * 0.09
-    subject.current.rotation.x += (pointer.y * 0.16 - subject.current.rotation.x) * 0.035
-    subject.current.rotation.z += (-pointer.x * 0.1 - subject.current.rotation.z) * 0.035
+    subject.current.rotation.y = MathUtils.damp(
+      subject.current.rotation.y,
+      -0.28 - pointer.x * 0.62,
+      4.2,
+      delta,
+    )
+    subject.current.rotation.x = MathUtils.damp(
+      subject.current.rotation.x,
+      0.02 + pointer.y * 0.13,
+      4.2,
+      delta,
+    )
+    subject.current.rotation.z = MathUtils.damp(
+      subject.current.rotation.z,
+      pointer.x * 0.055,
+      4.2,
+      delta,
+    )
   })
 
   return (

@@ -52,7 +52,7 @@ a { color: inherit; }
 
 .canvas-fallback { background: #050505; }
 
-.site-header, .site-footer, .hero-copy, .coming-soon-strip {
+.site-header, .site-footer, .hero-copy {
   position: relative;
   z-index: 2;
 }
@@ -134,41 +134,8 @@ h1 span:last-child { text-align: right; }
   transform: translate(-50%, -50%);
 }
 
-.coming-soon-strip {
-  position: absolute;
-  z-index: 3;
-  top: 61%;
-  left: -4vw;
-  width: 108vw;
-  overflow: hidden;
-  color: #050505;
-  background: #df211f;
-  transform: rotate(-2deg);
-  box-shadow: 0 0 40px rgb(223 33 31 / 22%);
-}
-
-.strip-track {
-  display: flex;
-  align-items: center;
-  width: max-content;
-  padding: 0.28em 0;
-  animation: marquee 18s linear infinite;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-  font-size: clamp(2.15rem, 5.6vw, 5.5rem);
-  line-height: 0.9;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.strip-track span { padding-inline: 0.55em; }
-.strip-track i { font-style: normal; font-size: 0.6em; }
-
 .site-footer { z-index: 4; }
 .model-credit a { pointer-events: auto; }
-
-@keyframes marquee {
-  to { transform: translateX(-50%); }
-}
 
 @media (max-width: 760px) {
   .edition, .model-credit { display: none; }
@@ -177,10 +144,5 @@ h1 span:last-child { text-align: right; }
   h1 { display: block; font-size: clamp(4.25rem, 23vw, 8rem); line-height: 0.77; }
   h1 span { display: block; }
   h1 span:last-child { margin-left: 0.32em; text-align: left; }
-  .coming-soon-strip { top: 64%; }
   .brand-star { top: 120%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .strip-track { animation: none; }
 }

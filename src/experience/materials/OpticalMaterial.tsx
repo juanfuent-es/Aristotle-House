@@ -1,7 +1,7 @@
 import { MeshTransmissionMaterial } from '@react-three/drei'
 import { Color } from 'three'
 
-const refractionBackground = new Color('#8f0e12')
+const refractionBackground = new Color('#050505')
 
 export interface OpticalMaterialSettings {
   transmission: number
@@ -21,16 +21,16 @@ export function OpticalMaterial({ settings }: OpticalMaterialProps) {
     <MeshTransmissionMaterial
       {...settings}
       background={refractionBackground}
-      color="#d51f20"
-      attenuationColor="#e32526"
-      attenuationDistance={1.4}
-      anisotropicBlur={0.08}
+      color="#ffaaa0"
+      attenuationColor="#df211f"
+      attenuationDistance={1.8}
+      anisotropicBlur={0.035}
       clearcoat={1}
-      clearcoatRoughness={0.12}
-      distortionScale={0.22}
-      temporalDistortion={0.035}
-      samples={6}
-      resolution={512}
+      clearcoatRoughness={0.06}
+      distortionScale={0.3}
+      temporalDistortion={0.025}
+      samples={8}
+      resolution={768}
     />
   )
 }

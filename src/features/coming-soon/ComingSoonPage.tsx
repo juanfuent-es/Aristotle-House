@@ -29,13 +29,6 @@ export function ComingSoonPage({ debug }: ComingSoonPageProps) {
         <div className="brand-star" aria-hidden="true" />
       </section>
 
-      <div className="coming-soon-strip" aria-label="Coming soon">
-        <div className="strip-track" aria-hidden="true">
-          <span>Coming soon</span><i>✦</i><span>Coming soon</span><i>✦</i>
-          <span>Coming soon</span><i>✦</i><span>Coming soon</span><i>✦</i>
-        </div>
-      </div>
-
       <footer className="site-footer">
         <p>Mexico City · Move to explore</p>
         <p className="model-credit">
