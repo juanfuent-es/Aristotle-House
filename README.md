@@ -19,6 +19,10 @@ Once the final GLB/GLTF URL is available, set `VITE_MODEL_URL` and replace the
 placeholder geometry inside that component while keeping the scene and material
 modules intact.
 
+The current model is based on [Aristotele bust](https://sketchfab.com/3d-models/aristotele-bust-8717fddd94c44498a5f91d652f866930)
+by [nicola_scaramella](https://sketchfab.com/nicola_scaramella), licensed under
+[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/).
+
 ## Deployment
 
 Pushes to `main` build and publish `dist/` through GitHub Pages. The workflow

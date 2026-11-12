@@ -1,8 +1,11 @@
-import { Float } from '@react-three/drei'
+import { Float, useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
-import type { Group } from 'three'
+import { useEffect, useMemo, useRef } from 'react'
+import { Mesh, type BufferGeometry, type Group } from 'three'
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { OpticalMaterial, type OpticalMaterialSettings } from '../materials/OpticalMaterial'
+
+const modelUrl = `${import.meta.env.BASE_URL}models/aristotle-bust.glb`
 
 interface OpticalSubjectProps {
   material: OpticalMaterialSettings
@@ -11,6 +14,27 @@ interface OpticalSubjectProps {
 
 export function OpticalSubject({ material, debug }: OpticalSubjectProps) {
   const subject = useRef<Group>(null)
+  const { scene } = useGLTF(modelUrl)
+
+  const geometry = useMemo(() => {
+    scene.updateMatrixWorld(true)
+    const parts: BufferGeometry[] = []
+
+    scene.traverse((child) => {
+      if (!(child instanceof Mesh)) return
+      const part = child.geometry.clone()
+      part.applyMatrix4(child.matrixWorld)
+      parts.push(part)
+    })
+
+    const merged = mergeGeometries(parts, false)
+    parts.forEach((part) => part.dispose())
+    merged?.center()
+    merged?.computeBoundingSphere()
+    return merged
+  }, [scene])
+
+  useEffect(() => () => geometry?.dispose(), [geometry])
 
   useFrame(({ pointer }, delta) => {
     if (!subject.current || debug) return
@@ -22,12 +46,13 @@ export function OpticalSubject({ material, debug }: OpticalSubjectProps) {
 
   return (
     <Float speed={1.25} rotationIntensity={0.18} floatIntensity={0.35}>
-      <group ref={subject} rotation={[0.1, -0.35, -0.08]}>
-        <mesh castShadow scale={1.35}>
-          <icosahedronGeometry args={[1.25, 1]} />
+      <group ref={subject} position={[0, -0.22, 0]} rotation={[0.02, -0.28, 0]}>
+        <mesh geometry={geometry ?? undefined} scale={0.0094}>
           <OpticalMaterial settings={material} />
         </mesh>
       </group>
     </Float>
   )
 }
+
+useGLTF.preload(modelUrl)

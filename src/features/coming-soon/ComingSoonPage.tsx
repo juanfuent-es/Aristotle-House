@@ -15,22 +15,32 @@ export function ComingSoonPage({ debug }: ComingSoonPageProps) {
 
       <header className="site-header">
         <a className="wordmark" href="./" aria-label="Aristotle House home">
-          Aristotle House
+          AH / 001
         </a>
-        <p className="edition">Digital study · 001</p>
+        <p className="edition">Where experience becomes understanding.</p>
       </header>
 
       <section className="hero-copy" aria-labelledby="page-title">
-        <p className="eyebrow">An evolving space for thought and form</p>
+        <p className="eyebrow">This building becomes</p>
         <h1 id="page-title">
-          Coming
-          <span>soon.</span>
+          <span>Aristotle</span>
+          <span>House</span>
         </h1>
+        <div className="brand-star" aria-hidden="true" />
       </section>
 
+      <div className="coming-soon-strip" aria-label="Coming soon">
+        <div className="strip-track" aria-hidden="true">
+          <span>Coming soon</span><i>✦</i><span>Coming soon</span><i>✦</i>
+          <span>Coming soon</span><i>✦</i><span>Coming soon</span><i>✦</i>
+        </div>
+      </div>
+
       <footer className="site-footer">
-        <p>Mexico City</p>
-        <p aria-hidden="true">Move to explore</p>
+        <p>Mexico City · Move to explore</p>
+        <p className="model-credit">
+          3D: <a href="https://sketchfab.com/nicola_scaramella">Nicola Scaramella</a> · CC BY 4.0
+        </p>
         <p>MMXXVI</p>
       </footer>
     </main>
