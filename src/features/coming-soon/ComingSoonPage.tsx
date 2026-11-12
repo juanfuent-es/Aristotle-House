@@ -13,15 +13,7 @@ export function ComingSoonPage({ debug }: ComingSoonPageProps) {
         <ExperienceCanvas debug={debug} />
       </Suspense>
 
-      <header className="site-header">
-        <a className="wordmark" href="./" aria-label="Aristotle House home">
-          AH / 001
-        </a>
-        <p className="edition">Where experience becomes understanding.</p>
-      </header>
-
       <section className="hero-copy" aria-labelledby="page-title">
-        <p className="eyebrow">Nothing reaches the mind without first passing through the senses.</p>
         <h1 id="page-title">
           <span>Aristotle</span>
           <span>House</span>
@@ -31,10 +23,10 @@ export function ComingSoonPage({ debug }: ComingSoonPageProps) {
 
       <footer className="site-footer">
         <p>Dubai / Move to explore</p>
+        <p>Where experience becomes understanding.</p>
         <p className="model-credit">
           3D: <a href="https://sketchfab.com/nicola_scaramella">Nicola Scaramella</a> · CC BY 4.0
         </p>
-        <p>MMXXVI</p>
       </footer>
     </main>
   )

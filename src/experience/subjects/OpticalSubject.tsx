@@ -1,4 +1,4 @@
-import { Float, useGLTF } from '@react-three/drei'
+import { Float, useFBO, useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import { MathUtils, Mesh, type BufferGeometry, type Group } from 'three'
@@ -15,6 +15,7 @@ interface OpticalSubjectProps {
 export function OpticalSubject({ material, debug }: OpticalSubjectProps) {
   const subject = useRef<Group>(null)
   const { scene } = useGLTF(modelUrl)
+  const refractionTarget = useFBO({ samples: 2, depthBuffer: true })
 
   const geometry = useMemo(() => {
     scene.updateMatrixWorld(true)
@@ -36,8 +37,18 @@ export function OpticalSubject({ material, debug }: OpticalSubjectProps) {
 
   useEffect(() => () => geometry?.dispose(), [geometry])
 
-  useFrame(({ pointer }, delta) => {
+  useFrame((state, delta) => {
     if (!subject.current || debug) return
+
+    const previousTarget = state.gl.getRenderTarget()
+    subject.current.visible = false
+    state.gl.setRenderTarget(refractionTarget)
+    state.gl.clear()
+    state.gl.render(state.scene, state.camera)
+    state.gl.setRenderTarget(previousTarget)
+    subject.current.visible = true
+
+    const { pointer } = state
 
     subject.current.rotation.y = MathUtils.damp(
       subject.current.rotation.y,
@@ -63,7 +74,7 @@ export function OpticalSubject({ material, debug }: OpticalSubjectProps) {
     <Float speed={1.25} rotationIntensity={0.18} floatIntensity={0.35}>
       <group ref={subject} position={[0, -0.22, 0]} rotation={[0.02, -0.28, 0]}>
         <mesh geometry={geometry ?? undefined} scale={0.0094}>
-          <OpticalMaterial settings={material} />
+          <OpticalMaterial settings={material} target={refractionTarget} />
         </mesh>
       </group>
     </Float>

@@ -28,7 +28,7 @@ a { color: inherit; }
   min-height: 100svh;
   padding: clamp(1.15rem, 2.4vw, 2.4rem);
   overflow: hidden;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1fr auto;
   isolation: isolate;
   background: #050505;
 }
@@ -52,12 +52,12 @@ a { color: inherit; }
 
 .canvas-fallback { background: #050505; }
 
-.site-header, .site-footer, .hero-copy {
+.site-footer, .hero-copy {
   position: relative;
   z-index: 2;
 }
 
-.site-header, .site-footer {
+.site-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -68,28 +68,12 @@ a { color: inherit; }
   font-weight: 800;
 }
 
-.wordmark {
-  pointer-events: auto;
-  text-decoration: none;
-}
-
-.edition, .site-footer p { margin: 0; }
+.site-footer p { margin: 0; }
 
 .hero-copy {
   align-self: center;
   width: 100%;
   pointer-events: none;
-}
-
-.eyebrow {
-  position: absolute;
-  top: -2rem;
-  left: 0.25rem;
-  margin: 0;
-  font-size: clamp(0.65rem, 0.9vw, 0.8rem);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.17em;
 }
 
 h1 {
@@ -153,9 +137,8 @@ h1 span:last-child { text-align: right; }
 }
 
 @media (max-width: 760px) {
-  .edition, .model-credit { display: none; }
+  .site-footer p:nth-child(2), .model-credit { display: none; }
   .hero-copy { align-self: start; margin-top: 17vh; }
-  .eyebrow { top: -1.75rem; }
   h1 { display: block; font-size: clamp(4.25rem, 23vw, 8rem); line-height: 0.77; }
   h1 span { display: block; }
   h1 span:last-child { margin-left: 0.32em; text-align: left; }

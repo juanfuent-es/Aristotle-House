@@ -1,13 +1,11 @@
 import { useFrame } from '@react-three/fiber'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo } from 'react'
 import {
   CanvasTexture,
   DoubleSide,
-  MathUtils,
   PlaneGeometry,
   RepeatWrapping,
   SRGBColorSpace,
-  type Group,
 } from 'three'
 
 function createRibbonTexture() {
@@ -18,14 +16,14 @@ function createRibbonTexture() {
   const context = canvas.getContext('2d')
   if (!context) throw new Error('Unable to create the ribbon texture')
 
-  context.fillStyle = '#df211f'
+  context.fillStyle = '#d82420'
   context.fillRect(0, 0, canvas.width, canvas.height)
-  context.fillStyle = '#050505'
+  context.fillStyle = '#f4efe5'
   context.font = '900 142px Impact, Arial Black, sans-serif'
   context.textAlign = 'left'
   context.textBaseline = 'middle'
 
-  const label = 'COMING SOON  ·  ARISTOTLE HOUSE  ·  '
+  const label = 'COMING SOON  /  ARISTOTLE HOUSE  /  '
   const labelWidth = context.measureText(label).width
 
   for (let x = -labelWidth; x < canvas.width + labelWidth; x += labelWidth) {
@@ -40,12 +38,7 @@ function createRibbonTexture() {
   return texture
 }
 
-interface OrbitingRibbonProps {
-  debug: boolean
-}
-
-export function OrbitingRibbon({ debug }: OrbitingRibbonProps) {
-  const ribbon = useRef<Group>(null)
+export function OrbitingRibbon() {
   const texture = useMemo(createRibbonTexture, [])
   const geometry = useMemo(() => {
     const plane = new PlaneGeometry(14, 1.05, 128, 1)
@@ -66,25 +59,12 @@ export function OrbitingRibbon({ debug }: OrbitingRibbonProps) {
     geometry.dispose()
   }, [geometry, texture])
 
-  useFrame(({ pointer }, delta) => {
-    if (!ribbon.current || debug) return
-
-    ribbon.current.position.x = MathUtils.damp(
-      ribbon.current.position.x,
-      pointer.x * 1.45,
-      3.8,
-      delta,
-    )
-    ribbon.current.rotation.y = MathUtils.damp(
-      ribbon.current.rotation.y,
-      pointer.x * 0.13,
-      3.8,
-      delta,
-    )
+  useFrame((_, delta) => {
+    texture.offset.x = (texture.offset.x - delta * 0.045) % 1
   })
 
   return (
-    <group ref={ribbon} position={[0, 0.18, -0.52]} rotation={[0.035, 0, -0.025]}>
+    <group position={[0, 0.18, -0.72]} rotation={[0.035, 0, -0.025]}>
       <mesh geometry={geometry}>
         <meshBasicMaterial
           map={texture}
