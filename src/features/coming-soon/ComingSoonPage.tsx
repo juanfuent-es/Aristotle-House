@@ -14,10 +14,6 @@ export function ComingSoonPage({ debug }: ComingSoonPageProps) {
       </Suspense>
 
       <section className="hero-copy" aria-labelledby="page-title">
-        <h1 id="page-title">
-          <span>Aristotle</span>
-          <span>House</span>
-        </h1>
         <div className="brand-star" aria-hidden="true" />
       </section>
 
